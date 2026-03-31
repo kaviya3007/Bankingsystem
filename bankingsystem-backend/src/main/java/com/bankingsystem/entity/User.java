@@ -1,11 +1,21 @@
-package com.bankingsystem;
+package com.bankingsystem.entity;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-@SpringBootApplication
-public class BankingSystemApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(BankingSystemApplication.class, args);
-    }
+@Entity
+@Getter
+@Setter
+@Table(name = "users")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String email;
+    private String password;
+    private String role;
 }
