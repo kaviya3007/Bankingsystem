@@ -1,13 +1,11 @@
 package com.bankingsystem.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "users")
 public class User {
 
     @Id
@@ -17,5 +15,7 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String role;
+
+    @Enumerated(EnumType.STRING)  // 🔥 IMPORTANT
+    private Role role;
 }
