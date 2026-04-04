@@ -21,7 +21,16 @@ public class JwtFilter extends GenericFilter {
 
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
-            jwtUtil.extractEmail(token);
+            try {
+                String email = jwtUtil.extractEmail(token);
+                if (email != null) {
+                    org.springframework.security.authentication.UsernamePasswordAuthenticationToken auth =
+                            new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(email, null, java.util.Collections.emptyList());
+                    org.springframework.security.core.context.SecurityContextHolder.getContext().setAuthentication(auth);
+                }
+            } catch (Exception e) {
+                // Invalid token, ignore and move on (Spring will handle access denied)
+            }
         }
 
         chain.doFilter(request, response);

@@ -42,4 +42,8 @@ public class TransactionService {
 
         return "Transfer Successful";
     }
+
+    public java.util.List<Transaction> getTransactions(String accNo) {
+        return txnRepo.findByFromAccountOrToAccount(accNo, accNo);
+    }
 }
